@@ -2,7 +2,12 @@ import datetime
 import sys
 from http import HTTPStatus
 import dashscope
+import os
+from datetime import datetime, timedelta
+import glob
 
+
+from utils.IOByTime import read_rss_summary_by_time
 
 def read_api_key():
     with open("config/api_key.txt", "r") as file:
@@ -50,18 +55,7 @@ def summarize_with_ai(text):
 
 
 def process_and_summarize():
-    # 读取 rss_summary.txt 文件
-    with open("rss_summary.txt", "r", encoding="utf-8") as f:
-        content = f.read()
-
-    # 调用 AI 进行总结
-    summary = summarize_with_ai(content)
-
-    if summary:
-        # 将总结保存到新文件
-        with open("ai_summary.txt", "w", encoding="utf-8") as f:
-            f.write(f"AI 总结 - 生成时间: {datetime.datetime.now()}\n\n")
-            f.write(summary)
-        print("AI 总结已保存到ai_summary.txt文件中。")
-    else:
-        print("AI 总结生成失败。")
+   
+    # 例如，调用AI进行摘要等操作
+    summary = summarize_with_ai(read_rss_summary_by_time())
+    return summary
